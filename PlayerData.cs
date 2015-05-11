@@ -15,6 +15,7 @@ namespace CSharp9_5
         public static int CurrentOdds;
         public static int RaceWinner;
         public static bool Winner;
+        public static bool IsRaceOver = false;
 
 
         public static void DisplayData(bool horsechosen)

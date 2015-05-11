@@ -34,25 +34,54 @@ namespace CSharp9_5
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("ENTER THE NR. OF YOUR HORSE: ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            PlayerData.Favorite = Int32.Parse(Console.ReadLine())-1;
+            string HorseBetTemp = Console.ReadLine();
+            int HorseBetValue;
+            if (int.TryParse(HorseBetTemp, out HorseBetValue))
+            {
+                if (Int32.Parse(HorseBetTemp) > 0 && Int32.Parse(HorseBetTemp) <= nrOfHorses)
+                {
+                    PlayerData.Favorite = Int32.Parse(HorseBetTemp) - 1;
+                }
+                else
+                {
+                    PlayerData.Favorite = 0;
+                }
+            }
+            else 
+            {
+                PlayerData.Favorite = 0;
+            }
+
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("ENTER YOUR BET: ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            int readBet = Int32.Parse(Console.ReadLine());
-
-            if (readBet > PlayerData.Cash)
+            string BetTemp = Console.ReadLine();
+            int BetValue;
+            if (int.TryParse(BetTemp, out BetValue))
             {
-                PlayerData.CurrentBet = PlayerData.Cash;
+                if (Int32.Parse(BetTemp) > 0)
+                {
+                    if (Int32.Parse(BetTemp) > PlayerData.Cash)
+                    {
+                        PlayerData.CurrentBet = PlayerData.Cash;
+                    }  
+                    else
+                    {
+                        PlayerData.CurrentBet = Int32.Parse(BetTemp);
+                    }
+                }
+                else
+                {
+                    PlayerData.CurrentBet = 0;
+                }
             }
             else
             {
-                PlayerData.CurrentBet = readBet;
+                PlayerData.CurrentBet = 0;
             }
 
             //Substracting bet from cash
             PlayerData.Cash -= PlayerData.CurrentBet;
-        }
-
-        
+        }     
     }
 }

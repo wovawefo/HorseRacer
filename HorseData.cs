@@ -24,7 +24,7 @@ namespace CSharp9_5
                                       "Old Fart", 
                                       "Lazy Bastard", 
                                       "Lightning Lue", 
-                                      "Geespot", 
+                                      "Funky Frankie", 
                                       "Cookie Monster", 
                                       "Roadrunner", 
                                       "Run Forrest", 

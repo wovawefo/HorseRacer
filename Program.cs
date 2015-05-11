@@ -20,7 +20,7 @@ namespace CSharp9_5
             {
                 var myPlayer = new System.Media.SoundPlayer();
                 myPlayer.SoundLocation = "..//..//HorseSong.wav";
-                myPlayer.Play();
+                myPlayer.PlayLooping();
             }
          
             //Open up StartScreen
@@ -35,6 +35,7 @@ namespace CSharp9_5
 
             while (PlayerData.Cash > 0)
             {
+                
                 //Create Random object
                 Random rnd = new Random();
 
@@ -64,20 +65,63 @@ namespace CSharp9_5
                 PlayerData.DisplayData(true);
 
                 //Creating Horses           
+                /*
                 for (int i = 0; i < HorseData.NumberOfHorses; i++)
                 {
                     Horse h1 = new Horse(HorseData.HorseNames[i], i + 1, HorseData.HorseColors[i], HorseData.HorseOdds[i]);
                     Thread t1 = new Thread(new ThreadStart(h1.Run));
                     t1.IsBackground = true;
                     t1.Start();
+                    
+                   if (PlayerData.KillThread == true)
+                   {
+                       t1.Abort();
+                   }
                 }
+                 */
 
-                if (Console.ReadLine() != "")
+                //Creating Horses
+                Horse h1 = new Horse(HorseData.HorseNames[0], 1, HorseData.HorseColors[0], HorseData.HorseOdds[0]);
+                Horse h2 = new Horse(HorseData.HorseNames[1], 2, HorseData.HorseColors[1], HorseData.HorseOdds[1]);
+                Horse h3 = new Horse(HorseData.HorseNames[2], 3, HorseData.HorseColors[2], HorseData.HorseOdds[2]);
+                Horse h4 = new Horse(HorseData.HorseNames[3], 4, HorseData.HorseColors[3], HorseData.HorseOdds[3]);
+                Horse h5 = new Horse(HorseData.HorseNames[4], 5, HorseData.HorseColors[4], HorseData.HorseOdds[4]);
+                Thread t1 = new Thread(new ThreadStart(h1.Run));
+                Thread t2 = new Thread(new ThreadStart(h2.Run));
+                Thread t3 = new Thread(new ThreadStart(h3.Run));
+                Thread t4 = new Thread(new ThreadStart(h4.Run));
+                Thread t5 = new Thread(new ThreadStart(h5.Run));
+                t1.IsBackground = true;
+                t2.IsBackground = true;
+                t3.IsBackground = true;
+                t4.IsBackground = true;
+                t5.IsBackground = true;
+                t1.Start();
+                t2.Start();
+                t3.Start();
+                t4.Start();
+                t5.Start();
+
+                while (true)
                 {
-                    break;
+                    //Check in the background if key is pressed. If it is SpaceBar, quit
+                    if (Console.KeyAvailable && PlayerData.IsRaceOver == true)
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Spacebar)
+                        {
+                            t1.Abort();
+                            t2.Abort();
+                            t3.Abort();
+                            t4.Abort();
+                            t5.Abort();
+                            break;
+                        }
+                    }
                 }
 
                 Horse.Place = 0;
+                PlayerData.IsRaceOver = false;
 
                 Console.Clear();
             }

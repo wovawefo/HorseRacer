@@ -34,7 +34,7 @@ namespace CSharp9_5
             for (int i = 0; i < 45; i++)
             {
                 Distance++;
-
+                
                 lock (rand)
                 {
                     Console.ForegroundColor = Color;
@@ -90,13 +90,27 @@ namespace CSharp9_5
                     }
                 }
 
-                if (Place == HorseData.NumberOfHorses && PlayerData.Cash != 0)
+                if (Place == HorseData.NumberOfHorses)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.SetCursorPosition(18, 24);
-                    Console.Write("Press ENTER to continue playing...");
-                }
+                    PlayerData.IsRaceOver = true;
 
+                    while (true)
+                    {
+                        //Check in the background if key is pressed. If it is spacebar, quit
+                        if (Console.KeyAvailable)
+                        {
+                            ConsoleKeyInfo key = Console.ReadKey(true);
+                            if (key.Key == ConsoleKey.Spacebar)
+                            {
+                                break;
+                            }
+                        }
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.SetCursorPosition(18, 24);
+                        Console.Write("Press SPACEBAR to continue ...");
+                    }
+                }
             }
         }
 
